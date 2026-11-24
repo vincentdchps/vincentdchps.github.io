@@ -43,9 +43,7 @@ body::before{
   content:'';
   position:fixed;
   inset:0;
-  background:
-    radial-gradient(ellipse 65% 55% at 78% 20%, rgba(124, 58, 237, 0.24) 0%, rgba(88, 28, 195, 0.11) 42%, transparent 72%),
-    radial-gradient(ellipse 50% 45% at 12% 82%, rgba(109, 40, 217, 0.15) 0%, transparent 68%);
+  background:radial-gradient(ellipse 90% 75% at 50% 35%, rgba(118, 48, 232, 0.18) 0%, rgba(72, 24, 160, 0.08) 55%, transparent 85%);
   pointer-events:none;
   z-index:0;
 }
@@ -76,7 +74,7 @@ strong{color:var(--white);font-weight:600}
 
 /* ── Sections ── */
 .section{padding:8rem 0}
-.section-dark{background:var(--black-2)}
+.section-dark{background:rgba(255,255,255,0.018)}
 
 .section-head{
   display:flex;align-items:baseline;gap:1.25rem;
@@ -365,14 +363,6 @@ strong{color:var(--white);font-weight:600}
   width:5px;height:5px;border-radius:50%;
   background:#3ddc84;
   flex-shrink:0;
-}
-.hero-right::after{
-  content:'';
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 55% 50%, transparent 25%, var(--black) 85%),
-             linear-gradient(to right, var(--black) 0%, transparent 28%);
-  pointer-events:none;
 }
 
 /* ══════════════════════════════
