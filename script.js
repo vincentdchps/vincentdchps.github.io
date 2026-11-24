@@ -205,13 +205,13 @@
 
   const init = () => {
     resize();
-    const count = Math.max(24, Math.min(48, Math.floor((W * H) / 14000)));
+    const count = Math.max(30, Math.min(64, Math.floor((W * H) / 11000)));
     nodes = Array.from({ length: count }, (_, i) => ({
       x: Math.random() * W,
       y: Math.random() * H,
       vx: (Math.random() - 0.5) * 0.28,
       vy: (Math.random() - 0.5) * 0.28,
-      r: i % 6 === 0 ? 2.4 : 1.3,
+      r: i % 6 === 0 ? 2.6 : 1.6,
       hub: i % 6 === 0
     }));
     pulses = [];
@@ -226,13 +226,13 @@
 
   const drawPlanet = () => {
     const compact = window.matchMedia('(max-width: 900px)').matches;
-    const radius = compact ? Math.min(W * 0.76, H * 0.4) : Math.min(W * 0.78, H * 0.63);
+    const radius = compact ? Math.min(W * 0.98, H * 0.64) : Math.min(W * 0.56, H * 0.84);
     if (radius < 1) return;
 
-    const cx = compact ? W * 0.78 : W * 0.66;
-    const cy = compact ? H * 0.75 : H * 0.52;
+    const cx = compact ? W * 0.92 : W * 1.035;
+    const cy = compact ? H * 1.0 : H * 1.05;
     const rotationOffset = (compact ? -0.18 : 0.42) + rotation;
-    const tilt = 0.28;
+    const tilt = 0.78;
     const project = (latitude, longitude) => {
       const lat = latitude * Math.PI / 180;
       const lon = longitude * Math.PI / 180 + rotationOffset;
@@ -247,10 +247,23 @@
       };
     };
 
+    const violetGlow = ctx.createRadialGradient(
+      cx - radius * 0.34, cy - radius * 0.28, radius * 0.14,
+      cx, cy, radius * 1.3
+    );
+    violetGlow.addColorStop(0, 'rgba(124,82,230,0.08)');
+    violetGlow.addColorStop(0.7, 'rgba(124,82,230,0.12)');
+    violetGlow.addColorStop(0.9, 'rgba(124,82,230,0.24)');
+    violetGlow.addColorStop(1, 'rgba(124,82,230,0)');
+    ctx.fillStyle = violetGlow;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 1.3, 0, Math.PI * 2);
+    ctx.fill();
+
     const atmosphere = ctx.createRadialGradient(cx, cy, radius * 0.84, cx, cy, radius * 1.14);
     atmosphere.addColorStop(0, 'rgba(95,160,187,0)');
     atmosphere.addColorStop(0.65, 'rgba(95,160,187,0.12)');
-    atmosphere.addColorStop(0.88, 'rgba(171,202,215,0.4)');
+    atmosphere.addColorStop(0.88, 'rgba(171,202,215,0.32)');
     atmosphere.addColorStop(1, 'rgba(106,155,185,0)');
     ctx.fillStyle = atmosphere;
     ctx.beginPath();
@@ -377,6 +390,14 @@
     ctx.beginPath();
     ctx.arc(cx, cy, radius - ctx.lineWidth / 2, -Math.PI * 0.86, -Math.PI * 0.1);
     ctx.stroke();
+    ctx.strokeStyle = 'rgba(151,104,255,0.8)';
+    ctx.shadowColor = 'rgba(124,58,237,0.95)';
+    ctx.shadowBlur = radius * 0.1;
+    ctx.lineWidth = Math.max(2.2, radius * 0.005);
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius + ctx.lineWidth * 1.3, -Math.PI * 0.86, -Math.PI * 0.1);
+    ctx.stroke();
+    ctx.shadowBlur = 0;
     ctx.strokeStyle = 'rgba(155,191,204,0.24)';
     ctx.lineWidth = Math.max(0.7, radius * 0.0012);
     ctx.beginPath();
@@ -386,7 +407,7 @@
 
   const draw = () => {
     ctx.clearRect(0, 0, W, H);
-    const maxD = 140;
+    const maxD = 175;
 
     for (let i = 0; i < nodes.length; i++) {
       const a = nodes[i];
@@ -403,9 +424,9 @@
         const dx = a.x - b.x, dy = a.y - b.y;
         const d = Math.hypot(dx, dy);
         if (d < maxD) {
-          const alpha = (1 - d / maxD) * 0.16;
+          const alpha = (1 - d / maxD) * 0.3;
           ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
-          ctx.lineWidth = 0.7;
+          ctx.lineWidth = 0.8;
           ctx.beginPath();
           ctx.moveTo(a.x, a.y);
           ctx.lineTo(b.x, b.y);
@@ -420,8 +441,8 @@
       // mouse link
       const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
       if (md < 160) {
-        ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 160) * 0.28})`;
-        ctx.lineWidth = 0.8;
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 160) * 0.38})`;
+        ctx.lineWidth = 0.9;
         ctx.beginPath();
         ctx.moveTo(a.x, a.y);
         ctx.lineTo(mouse.x, mouse.y);
@@ -429,7 +450,7 @@
       }
 
       // node
-      ctx.fillStyle = a.hub ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.28)';
+      ctx.fillStyle = a.hub ? 'rgba(255,255,255,0.8)' : 'rgba(255,255,255,0.42)';
       ctx.beginPath();
       ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
       ctx.fill();
