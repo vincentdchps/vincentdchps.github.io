@@ -66,7 +66,9 @@ vincentdchps.github.io/
 ├── index.html   # Markup HTML5 sémantique
 ├── style.css    # Design system + responsive + animations
 ├── script.js    # Nav, reveal, counters, canvas, copy email, scroll spy
-├── logo.png     # Logo du site et favicon
+├── logo.svg     # Logo vectoriel du site et favicon
+├── logo.png     # Icône Apple Touch
+├── favicon.png  # Fallback PNG pour l’onglet
 ├── CNAME        # → vincentdeschamps.dev
 └── README.md    # Ce fichier
 ```
