@@ -213,16 +213,6 @@
     ctx.clearRect(0, 0, W, H);
     const maxD = 140;
 
-    // subtle concentric reference rings centered on right half
-    const cx = W * 0.55, cy = H * 0.48;
-    ctx.strokeStyle = 'rgba(255,255,255,0.035)';
-    ctx.lineWidth = 1;
-    [110, 200, 290].forEach(rad => {
-      ctx.beginPath();
-      ctx.arc(cx, cy, rad, 0, Math.PI * 2);
-      ctx.stroke();
-    });
-
     for (let i = 0; i < nodes.length; i++) {
       const a = nodes[i];
       if (!reduced) {
