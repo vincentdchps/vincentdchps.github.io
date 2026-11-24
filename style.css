@@ -119,11 +119,15 @@ strong{color:var(--white);font-weight:600}
 }
 
 .nav-logo{
-  font-size:1.1rem;font-weight:800;letter-spacing:.04em;
+  display:flex;align-items:center;
   transition:opacity .2s;
 }
-.nav-logo-dot{color:var(--white-50)}
-.nav-logo:hover{opacity:.7}
+.nav-logo-img{
+  width:34px;height:34px;
+  object-fit:contain;
+  mix-blend-mode:lighten;
+}
+.nav-logo:hover{opacity:.75}
 
 .nav-menu{display:flex;align-items:center;gap:2.5rem}
 .nav-link{
