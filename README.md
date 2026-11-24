@@ -55,7 +55,7 @@ base-uri    'self';
 - **IntersectionObserver** pour le scroll-reveal : aucun listener `scroll` global (sauf le nav).
 - **`prefers-reduced-motion`** respecté : toutes les animations sont désactivées si l'OS le demande.
 - Globe du héros : rendu Canvas procédural avec maillage sphérique et mouvement lent.
-- Logo du site : visuel fourni, optimisé en PNG pour le logo de navigation et les icônes du site.
+- Logo de navigation : `logo.svg`. Icône ronde de l’onglet : `favicon.svg`, avec `favicon.png` comme fallback.
 
 ---
 
@@ -66,7 +66,8 @@ vincentdchps.github.io/
 ├── index.html   # Markup HTML5 sémantique
 ├── style.css    # Design system + responsive + animations
 ├── script.js    # Nav, reveal, counters, canvas, copy email, scroll spy
-├── logo.svg     # Logo vectoriel du site et favicon
+├── logo.svg     # Logo vectoriel de navigation
+├── favicon.svg  # Favicon vectoriel rond
 ├── logo.png     # Icône Apple Touch
 ├── favicon.png  # Fallback PNG pour l’onglet
 ├── CNAME        # → vincentdeschamps.dev
