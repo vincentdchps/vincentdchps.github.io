@@ -50,13 +50,12 @@ base-uri    'self';
 
 ## Performances
 
-- **Image du héros stockée localement** : aucun appel externe pour le visuel NASA.
+- **Visuel du héros généré en Canvas** : aucune photo ni ressource externe pour le globe.
 - **Canvas particle network** dans le héros : pause automatique via `visibilitychange` quand l'onglet est masqué.
 - **IntersectionObserver** pour le scroll-reveal : aucun listener `scroll` global (sauf le nav).
 - **`prefers-reduced-motion`** respecté : toutes les animations sont désactivées si l'OS le demande.
-- Image du héros : photo locale de la Terre prise depuis l'ISS (NASA/Jessica Meir).
-- Le visuel NASA est conservé dans `assets/earth-at-night.jpg` pour éviter une requête externe.
-- Source et crédit : [NASA — Space Station View of Earth at Night](https://www.nasa.gov/image-article/space-station-view-of-earth-at-night/).
+- Globe du héros : rendu Canvas procédural avec maillage sphérique et mouvement lent.
+- Logo du site : visuel fourni, optimisé en PNG pour le logo de navigation et les icônes du site.
 
 ---
 
@@ -67,8 +66,7 @@ vincentdchps.github.io/
 ├── index.html   # Markup HTML5 sémantique
 ├── style.css    # Design system + responsive + animations
 ├── script.js    # Nav, reveal, counters, canvas, copy email, scroll spy
-├── assets/
-│   └── earth-at-night.jpg # Photo NASA/Jessica Meir
+├── logo.png     # Logo du site et favicon
 ├── CNAME        # → vincentdeschamps.dev
 └── README.md    # Ce fichier
 ```
@@ -85,7 +83,7 @@ vincentdchps.github.io/
 | Compteurs animés | `requestAnimationFrame` + easing `easeOut` cubique |
 | Copier l'e-mail | `navigator.clipboard.writeText` + fallback `execCommand` |
 | Canvas réseau | Particules `requestAnimationFrame`, pause sur `visibilitychange` |
-| Photo du héros | Image NASA locale, superposée au canvas réseau |
+| Globe réseau | Projection sphérique Canvas, maillage et particules animés |
 | Scroll spy | `IntersectionObserver` sur `section[id]`, `aria-current` |
 
 ---

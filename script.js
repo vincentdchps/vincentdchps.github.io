@@ -168,7 +168,7 @@
 
 
 /* ══════════════════════════════════
-   HERO CANVAS — monochrome topology
+   HERO CANVAS — animated wireframe planet
 ══════════════════════════════════ */
 (function () {
   const canvas = document.getElementById('netCanvas');
@@ -178,6 +178,21 @@
 
   let W = 0, H = 0, dpr = 1, nodes = [], pulses = [], raf;
   let mouse = { x: -9999, y: -9999 };
+  let rotation = 0;
+  const noiseCanvas = document.createElement('canvas');
+  noiseCanvas.width = 96;
+  noiseCanvas.height = 96;
+  const noiseCtx = noiseCanvas.getContext('2d');
+  const noiseData = noiseCtx.createImageData(noiseCanvas.width, noiseCanvas.height);
+  for (let i = 0; i < noiseData.data.length; i += 4) {
+    const grain = 120 + Math.random() * 110;
+    noiseData.data[i] = grain;
+    noiseData.data[i + 1] = grain;
+    noiseData.data[i + 2] = grain;
+    noiseData.data[i + 3] = 24;
+  }
+  noiseCtx.putImageData(noiseData, 0, 0);
+  const noisePattern = ctx.createPattern(noiseCanvas, 'repeat');
 
   const resize = () => {
     dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -208,6 +223,166 @@
     mouse.y = e.clientY - r.top;
   }, { passive: true });
   canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  const drawPlanet = () => {
+    const compact = window.matchMedia('(max-width: 900px)').matches;
+    const radius = compact ? Math.min(W * 0.76, H * 0.4) : Math.min(W * 0.78, H * 0.63);
+    if (radius < 1) return;
+
+    const cx = compact ? W * 0.78 : W * 0.66;
+    const cy = compact ? H * 0.75 : H * 0.52;
+    const rotationOffset = (compact ? -0.18 : 0.42) + rotation;
+    const tilt = 0.28;
+    const project = (latitude, longitude) => {
+      const lat = latitude * Math.PI / 180;
+      const lon = longitude * Math.PI / 180 + rotationOffset;
+      const baseY = Math.sin(lat);
+      const baseZ = Math.cos(lat) * Math.cos(lon);
+      const y = baseY * Math.cos(tilt) - baseZ * Math.sin(tilt);
+      const depth = baseY * Math.sin(tilt) + baseZ * Math.cos(tilt);
+      return {
+        x: cx + radius * Math.cos(lat) * Math.sin(lon),
+        y: cy - radius * y,
+        depth
+      };
+    };
+
+    const atmosphere = ctx.createRadialGradient(cx, cy, radius * 0.84, cx, cy, radius * 1.14);
+    atmosphere.addColorStop(0, 'rgba(95,160,187,0)');
+    atmosphere.addColorStop(0.65, 'rgba(95,160,187,0.12)');
+    atmosphere.addColorStop(0.88, 'rgba(171,202,215,0.4)');
+    atmosphere.addColorStop(1, 'rgba(106,155,185,0)');
+    ctx.fillStyle = atmosphere;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius * 1.14, 0, Math.PI * 2);
+    ctx.fill();
+
+    const ocean = ctx.createRadialGradient(
+      cx - radius * 0.34, cy - radius * 0.4, radius * 0.03,
+      cx, cy, radius * 1.02
+    );
+    ocean.addColorStop(0, '#4b6269');
+    ocean.addColorStop(0.28, '#253b43');
+    ocean.addColorStop(0.68, '#0c1a20');
+    ocean.addColorStop(1, '#010304');
+    ctx.save();
+    ctx.shadowColor = 'rgba(90,156,182,0.22)';
+    ctx.shadowBlur = radius * 0.06;
+    ctx.fillStyle = ocean;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.shadowBlur = 0;
+    ctx.clip();
+
+    if (noisePattern) {
+      ctx.globalAlpha = 0.09;
+      ctx.fillStyle = noisePattern;
+      ctx.fillRect(cx - radius, cy - radius, radius * 2, radius * 2);
+      ctx.globalAlpha = 1;
+    }
+
+    const gridStroke = Math.max(0.8, radius * 0.002);
+    ctx.lineWidth = gridStroke;
+    for (let latitude = -75; latitude <= 75; latitude += 15) {
+      const alpha = 0.26 + (1 - Math.abs(latitude) / 90) * 0.3;
+      ctx.strokeStyle = `rgba(166,205,217,${alpha})`;
+      ctx.beginPath();
+      let drawing = false;
+      for (let step = 0; step <= 96; step++) {
+        const longitude = -180 + step * 360 / 96;
+        const point = project(latitude, longitude);
+        if (point.depth <= 0.015) {
+          drawing = false;
+          continue;
+        }
+        if (drawing) ctx.lineTo(point.x, point.y);
+        else ctx.moveTo(point.x, point.y);
+        drawing = true;
+      }
+      ctx.stroke();
+    }
+
+    const meridianCount = 24;
+    const latitudes = [];
+    for (let latitude = -75; latitude <= 75; latitude += 15) latitudes.push(latitude);
+    for (let index = 0; index < meridianCount; index++) {
+      const longitude = -180 + index * 360 / meridianCount;
+      const center = project(0, longitude);
+      ctx.strokeStyle = `rgba(180,215,224,${0.25 + Math.max(0, center.depth) * 0.34})`;
+      ctx.beginPath();
+      let drawing = false;
+      for (let step = 0; step <= 80; step++) {
+        const latitude = -90 + step * 180 / 80;
+        const point = project(latitude, longitude);
+        if (point.depth <= 0.015) {
+          drawing = false;
+          continue;
+        }
+        if (drawing) ctx.lineTo(point.x, point.y);
+        else ctx.moveTo(point.x, point.y);
+        drawing = true;
+      }
+      ctx.stroke();
+    }
+
+    ctx.lineWidth = Math.max(0.6, radius * 0.0012);
+    ctx.strokeStyle = 'rgba(188,220,229,0.2)';
+    for (let row = 0; row < latitudes.length - 1; row++) {
+      for (let column = 0; column < meridianCount; column++) {
+        const nextColumn = (column + 1) % meridianCount;
+        const diagonal = (row + column) % 2 === 0;
+        const a = project(latitudes[row], -180 + (diagonal ? column : nextColumn) * 360 / meridianCount);
+        const b = project(latitudes[row + 1], -180 + (diagonal ? nextColumn : column) * 360 / meridianCount);
+        if (a.depth <= 0.18 || b.depth <= 0.18) continue;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(b.x, b.y);
+        ctx.stroke();
+      }
+    }
+
+    for (let row = 0; row < latitudes.length; row++) {
+      const latitude = latitudes[row];
+      for (let index = 0; index < meridianCount; index++) {
+        const longitude = -180 + index * 360 / meridianCount;
+        const point = project(latitude, longitude);
+        if (point.depth <= 0.12) continue;
+        const hub = (row * 7 + index * 11) % 17 === 0;
+        if (hub) {
+          ctx.fillStyle = `rgba(175,219,232,${point.depth * 0.2})`;
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, 7, 0, Math.PI * 2);
+          ctx.fill();
+        }
+        ctx.fillStyle = `rgba(222,237,240,${0.4 + point.depth * 0.5})`;
+        ctx.beginPath();
+        ctx.arc(point.x, point.y, hub ? 2.2 : 1.2, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+
+    const terminator = ctx.createLinearGradient(cx - radius, cy, cx + radius, cy);
+    terminator.addColorStop(0, 'rgba(0,0,0,0.06)');
+    terminator.addColorStop(0.56, 'rgba(0,0,0,0.02)');
+    terminator.addColorStop(1, 'rgba(0,0,0,0.74)');
+    ctx.fillStyle = terminator;
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+
+    ctx.strokeStyle = 'rgba(197,226,235,0.62)';
+    ctx.lineWidth = Math.max(0.8, radius * 0.0018);
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius - ctx.lineWidth / 2, -Math.PI * 0.86, -Math.PI * 0.1);
+    ctx.stroke();
+    ctx.strokeStyle = 'rgba(155,191,204,0.24)';
+    ctx.lineWidth = Math.max(0.7, radius * 0.0012);
+    ctx.beginPath();
+    ctx.arc(cx, cy, radius - ctx.lineWidth / 2, 0, Math.PI * 2);
+    ctx.stroke();
+  };
 
   const draw = () => {
     ctx.clearRect(0, 0, W, H);
@@ -273,6 +448,8 @@
       ctx.fill();
     }
 
+    drawPlanet();
+    if (!reduced) rotation += 0.0007;
     if (!reduced) raf = requestAnimationFrame(draw);
   };
 
