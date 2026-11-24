@@ -247,29 +247,6 @@
       };
     };
 
-    const violetGlow = ctx.createRadialGradient(
-      cx - radius * 0.34, cy - radius * 0.28, radius * 0.14,
-      cx, cy, radius * 1.3
-    );
-    violetGlow.addColorStop(0, 'rgba(124,82,230,0.08)');
-    violetGlow.addColorStop(0.7, 'rgba(124,82,230,0.12)');
-    violetGlow.addColorStop(0.9, 'rgba(124,82,230,0.24)');
-    violetGlow.addColorStop(1, 'rgba(124,82,230,0)');
-    ctx.fillStyle = violetGlow;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius * 1.3, 0, Math.PI * 2);
-    ctx.fill();
-
-    const atmosphere = ctx.createRadialGradient(cx, cy, radius * 0.84, cx, cy, radius * 1.14);
-    atmosphere.addColorStop(0, 'rgba(95,160,187,0)');
-    atmosphere.addColorStop(0.65, 'rgba(95,160,187,0.12)');
-    atmosphere.addColorStop(0.88, 'rgba(171,202,215,0.32)');
-    atmosphere.addColorStop(1, 'rgba(106,155,185,0)');
-    ctx.fillStyle = atmosphere;
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius * 1.14, 0, Math.PI * 2);
-    ctx.fill();
-
     const ocean = ctx.createRadialGradient(
       cx - radius * 0.34, cy - radius * 0.4, radius * 0.03,
       cx, cy, radius * 1.02
@@ -279,8 +256,8 @@
     ocean.addColorStop(0.68, '#0c1a20');
     ocean.addColorStop(1, '#010304');
     ctx.save();
-    ctx.shadowColor = 'rgba(90,156,182,0.22)';
-    ctx.shadowBlur = radius * 0.06;
+    ctx.shadowColor = 'rgba(90,156,182,0.08)';
+    ctx.shadowBlur = radius * 0.02;
     ctx.fillStyle = ocean;
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
@@ -385,21 +362,13 @@
     ctx.fill();
     ctx.restore();
 
-    ctx.strokeStyle = 'rgba(197,226,235,0.62)';
-    ctx.lineWidth = Math.max(0.8, radius * 0.0018);
+    ctx.strokeStyle = 'rgba(197,226,235,0.22)';
+    ctx.lineWidth = Math.max(0.7, radius * 0.0014);
     ctx.beginPath();
     ctx.arc(cx, cy, radius - ctx.lineWidth / 2, -Math.PI * 0.86, -Math.PI * 0.1);
     ctx.stroke();
-    ctx.strokeStyle = 'rgba(151,104,255,0.8)';
-    ctx.shadowColor = 'rgba(124,58,237,0.95)';
-    ctx.shadowBlur = radius * 0.1;
-    ctx.lineWidth = Math.max(2.2, radius * 0.005);
-    ctx.beginPath();
-    ctx.arc(cx, cy, radius + ctx.lineWidth * 1.3, -Math.PI * 0.86, -Math.PI * 0.1);
-    ctx.stroke();
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = 'rgba(155,191,204,0.24)';
-    ctx.lineWidth = Math.max(0.7, radius * 0.0012);
+    ctx.strokeStyle = 'rgba(155,191,204,0.12)';
+    ctx.lineWidth = Math.max(0.6, radius * 0.001);
     ctx.beginPath();
     ctx.arc(cx, cy, radius - ctx.lineWidth / 2, 0, Math.PI * 2);
     ctx.stroke();

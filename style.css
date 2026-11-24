@@ -31,7 +31,7 @@
 html{scroll-behavior:smooth;overflow-x:hidden}
 body{
   font-family:var(--font-sans);
-  background:var(--black);
+  background:#040207;
   color:var(--white);
   line-height:1.6;
   overflow-x:hidden;
@@ -43,7 +43,9 @@ body::before{
   content:'';
   position:fixed;
   inset:0;
-  background:radial-gradient(ellipse 90% 75% at 68% 35%, rgba(148, 158, 174, 0.11) 0%, rgba(76, 83, 96, 0.05) 55%, transparent 85%);
+  background:
+    radial-gradient(ellipse 118% 100% at 65% 42%,rgba(67,39,103,.11) 0%,rgba(42,27,64,.055) 54%,transparent 100%),
+    radial-gradient(ellipse 90% 80% at 15% 92%,rgba(72,40,107,.06) 0%,transparent 100%);
   pointer-events:none;
   z-index:0;
 }
@@ -129,6 +131,7 @@ strong{color:var(--white);font-weight:600}
   width:100%;height:100%;
   object-fit:cover;
   border-radius:inherit;
+  clip-path:circle(50%);
 }
 .nav-logo:hover{
   border-color:rgba(139,92,246,0.5);
@@ -271,7 +274,7 @@ strong{color:var(--white);font-weight:600}
   inset:0;
   overflow:hidden;
   isolation:isolate;
-  background:radial-gradient(ellipse 52% 64% at 86% 76%,rgba(124,82,230,.3),transparent 74%);
+  background:radial-gradient(ellipse 120% 130% at 86% 76%,rgba(87,58,139,.12) 0%,rgba(68,45,106,.07) 38%,rgba(48,33,78,.025) 72%,transparent 100%);
 }
 .hero-visual::before{
   content:'';
