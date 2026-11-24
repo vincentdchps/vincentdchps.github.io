@@ -274,7 +274,7 @@ strong{color:var(--white);font-weight:600}
   inset:0;
   overflow:hidden;
   isolation:isolate;
-  background:radial-gradient(ellipse 120% 130% at 86% 76%,rgba(87,58,139,.12) 0%,rgba(68,45,106,.07) 38%,rgba(48,33,78,.025) 72%,transparent 100%);
+  background:radial-gradient(ellipse 120% 130% at 86% 76%,rgba(87,58,139,.18) 0%,rgba(68,45,106,.08) 38%,rgba(48,33,78,.025) 72%,transparent 100%);
 }
 .hero-visual::before{
   content:'';
@@ -661,7 +661,7 @@ strong{color:var(--white);font-weight:600}
   .hero-visual::before{
     background:
       linear-gradient(90deg,rgba(0,0,0,.92),rgba(0,0,0,.76) 42%,rgba(0,0,0,.12) 88%),
-      linear-gradient(0deg,rgba(0,0,0,.68),transparent 45%,rgba(0,0,0,.18));
+      linear-gradient(0deg,rgba(0,0,0,.5),transparent 45%,rgba(0,0,0,.18));
   }
   .about-grid{grid-template-columns:1fr}
   .skills-wrap{grid-template-columns:1fr}

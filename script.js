@@ -247,22 +247,11 @@
       };
     };
 
-    const ocean = ctx.createRadialGradient(
-      cx - radius * 0.34, cy - radius * 0.4, radius * 0.03,
-      cx, cy, radius * 1.02
-    );
-    ocean.addColorStop(0, '#4b6269');
-    ocean.addColorStop(0.28, '#253b43');
-    ocean.addColorStop(0.68, '#0c1a20');
-    ocean.addColorStop(1, '#010304');
     ctx.save();
-    ctx.shadowColor = 'rgba(90,156,182,0.08)';
-    ctx.shadowBlur = radius * 0.02;
-    ctx.fillStyle = ocean;
+    ctx.fillStyle = 'rgba(2,1,7,0.18)';
     ctx.beginPath();
     ctx.arc(cx, cy, radius, 0, Math.PI * 2);
     ctx.fill();
-    ctx.shadowBlur = 0;
     ctx.clip();
 
     if (noisePattern) {
