@@ -615,10 +615,7 @@ strong{color:var(--white);font-weight:600}
 @media(max-width:900px){
   .hero{grid-template-columns:1fr;min-height:auto}
   .hero-left{padding:9rem 1.5rem 2.5rem;max-width:100%;text-align:left}
-  .hero-right{height:auto;min-height:300px;padding:1rem 1.5rem 3rem}
-  .hero-visual{position:relative;min-height:280px}
-  #netCanvas{position:absolute;inset:0}
-  .hero-panel{width:100%;max-width:420px}
+  .hero-right{height:45vw;min-height:220px;max-height:320px}
   .about-grid{grid-template-columns:1fr}
   .skills-wrap{grid-template-columns:1fr}
   .contact-wrap{grid-template-columns:1fr;gap:3rem}
