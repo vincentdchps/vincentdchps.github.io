@@ -50,12 +50,13 @@ base-uri    'self';
 
 ## Performances
 
-- **Zéro requête externe** au chargement : pas de Google Fonts, pas de CDN, pas d'analytics.
+- **Image du héros stockée localement** : aucun appel externe pour le visuel NASA.
 - **Canvas particle network** dans le héros : pause automatique via `visibilitychange` quand l'onglet est masqué.
 - **IntersectionObserver** pour le scroll-reveal : aucun listener `scroll` global (sauf le nav).
 - **`prefers-reduced-motion`** respecté : toutes les animations sont désactivées si l'OS le demande.
-- Images : aucune — l'icône de favicon est un SVG inline en `data:` URI.
-- Taille totale : HTML + CSS + JS < 30 Ko non compressé.
+- Image du héros : photo locale de la Terre prise depuis l'ISS (NASA/Jessica Meir).
+- Le visuel NASA est conservé dans `assets/earth-at-night.jpg` pour éviter une requête externe.
+- Source et crédit : [NASA — Space Station View of Earth at Night](https://www.nasa.gov/image-article/space-station-view-of-earth-at-night/).
 
 ---
 
@@ -66,6 +67,8 @@ vincentdchps.github.io/
 ├── index.html   # Markup HTML5 sémantique
 ├── style.css    # Design system + responsive + animations
 ├── script.js    # Nav, reveal, counters, canvas, copy email, scroll spy
+├── assets/
+│   └── earth-at-night.jpg # Photo NASA/Jessica Meir
 ├── CNAME        # → vincentdeschamps.dev
 └── README.md    # Ce fichier
 ```
@@ -82,6 +85,7 @@ vincentdchps.github.io/
 | Compteurs animés | `requestAnimationFrame` + easing `easeOut` cubique |
 | Copier l'e-mail | `navigator.clipboard.writeText` + fallback `execCommand` |
 | Canvas réseau | Particules `requestAnimationFrame`, pause sur `visibilitychange` |
+| Photo du héros | Image NASA locale, superposée au canvas réseau |
 | Scroll spy | `IntersectionObserver` sur `section[id]`, `aria-current` |
 
 ---
