@@ -1,13 +1,12 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Vincent Deschamps — Étudiant en L3 Informatique, candidat Master Cybersécurité. Portfolio de projets réseau, sécurité et développement." />
+  <meta name="description" content="Vincent Deschamps — Computer Science student targeting a Master's in Cybersecurity. Network infrastructure, SOC, ethical hacking." />
   <meta name="author" content="Vincent Deschamps" />
-  <meta name="theme-color" content="#0a0c10" />
+  <meta name="theme-color" content="#000000" />
 
-  <!-- Strict CSP — no external scripts, no external styles, no external fonts -->
   <meta http-equiv="Content-Security-Policy"
     content="default-src 'none';
              script-src 'self';
@@ -19,174 +18,192 @@
              object-src 'none';
              base-uri 'self';" />
 
-  <!-- Open Graph -->
-  <meta property="og:title" content="Vincent Deschamps — Cybersécurité" />
-  <meta property="og:description" content="Étudiant L3 Informatique → Master Cybersécurité. Réseaux, SOC, sécurité offensive." />
+  <meta property="og:title" content="Vincent Deschamps" />
+  <meta property="og:description" content="CS Student — Cybersecurity" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://vincentdeschamps.dev" />
 
   <title>Vincent Deschamps</title>
+
+  <!-- SVG favicon: shield with lock — visible on dark -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23111'/%3E%3Cpath d='M16 4 L26 8 L26 16 C26 21.5 21.5 26.5 16 28 C10.5 26.5 6 21.5 6 16 L6 8 Z' fill='none' stroke='%235b7fff' stroke-width='1.5'/%3E%3Crect x='13' y='15' width='6' height='5' rx='1' fill='%235b7fff'/%3E%3Ccircle cx='16' cy='14.5' r='2' fill='none' stroke='%235b7fff' stroke-width='1.5'/%3E%3C/svg%3E" />
+
   <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡</text></svg>" />
 </head>
 <body>
 
-  <!-- ═══════════════ NAV ═══════════════ -->
-  <nav class="nav" id="nav" aria-label="Navigation principale">
-    <a href="#hero" class="nav-logo" aria-label="Accueil">VD</a>
-    <button class="nav-toggle" id="navToggle" aria-label="Menu" aria-expanded="false" aria-controls="navLinks">
-      <span></span><span></span><span></span>
+  <!-- CURSOR -->
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+
+  <!-- NAV -->
+  <nav class="nav" id="nav" aria-label="Main navigation">
+    <a href="#hero" class="nav-logo" aria-label="Home">VD<span class="nav-logo-dot">.</span></a>
+    <button class="nav-burger" id="navBurger" aria-label="Open menu" aria-expanded="false" aria-controls="navMenu">
+      <span></span><span></span>
     </button>
-    <ul class="nav-links" id="navLinks" role="list">
-      <li><a href="#about">À propos</a></li>
-      <li><a href="#skills">Compétences</a></li>
-      <li><a href="#projects">Projets</a></li>
-      <li><a href="#contact">Contact</a></li>
+    <ul class="nav-menu" id="navMenu" role="list">
+      <li><a href="#about"    class="nav-link" data-index="01">About</a></li>
+      <li><a href="#skills"   class="nav-link" data-index="02">Skills</a></li>
+      <li><a href="#projects" class="nav-link" data-index="03">Projects</a></li>
+      <li><a href="#contact"  class="nav-link" data-index="04">Contact</a></li>
+      <li>
+        <a href="cv-vincent-deschamps.pdf" class="nav-cv" download aria-label="Download CV">
+          Resume <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2v8M4 7l4 4 4-4"/><path d="M2 13h12"/></svg>
+        </a>
+      </li>
     </ul>
   </nav>
 
-  <!-- ═══════════════ HERO ═══════════════ -->
+  <!-- HERO -->
   <section class="hero" id="hero" aria-label="Introduction">
-    <div class="hero-bg" aria-hidden="true">
-      <canvas id="heroCanvas"></canvas>
-    </div>
-    <div class="hero-content">
-      <p class="hero-eyebrow reveal">L3 Informatique → Master Cybersécurité</p>
-      <h1 class="hero-name reveal">Vincent<br /><span>Deschamps</span></h1>
-      <p class="hero-tagline reveal">Réseaux · Sécurité · SOC · CTF</p>
-      <div class="hero-cta reveal">
-        <a href="#projects" class="btn btn-primary">Voir les projets</a>
-        <a href="#contact" class="btn btn-ghost">Me contacter</a>
+    <div class="hero-left">
+      <p class="hero-label fade-up">Cybersecurity Student — Based in France</p>
+      <h1 class="hero-name fade-up">
+        <span class="hero-first">Vincent</span>
+        <span class="hero-last">Deschamps</span>
+      </h1>
+      <p class="hero-sub fade-up">
+        BSc Computer Science → MSc Cybersecurity.<br/>
+        Networks · Threat analysis · Ethical hacking.
+      </p>
+      <div class="hero-actions fade-up">
+        <a href="#projects" class="btn-primary">View work</a>
+        <a href="#contact" class="btn-ghost">Get in touch</a>
+      </div>
+      <div class="hero-status fade-up">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Open to internships &amp; Master's programs</span>
       </div>
     </div>
-    <a href="#about" class="scroll-hint" aria-label="Défiler vers le bas">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-        <path d="M12 5v14M5 12l7 7 7-7"/>
-      </svg>
-    </a>
+    <div class="hero-right fade-up">
+      <div class="hero-photo-wrap">
+        <div class="hero-photo-ring" aria-hidden="true"></div>
+        <img src="avatar.png" alt="Vincent Deschamps" class="hero-photo" width="340" height="340" />
+        <div class="hero-photo-badge" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <!-- ═══════════════ ABOUT ═══════════════ -->
-  <section class="section" id="about" aria-label="À propos">
+  <!-- ABOUT -->
+  <section class="section" id="about" aria-label="About">
     <div class="container">
-      <h2 class="section-title reveal">À propos</h2>
+      <div class="section-head fade-up">
+        <span class="section-num">01</span>
+        <h2>About</h2>
+      </div>
       <div class="about-grid">
-        <div class="about-text reveal">
+        <div class="about-text fade-up">
           <p>
-            Étudiant en <strong>Licence 3 Informatique</strong>, je m'oriente vers un
-            <strong>Master Cybersécurité</strong> (cible : Paris-Saclay, IMT, EPITA, EURECOM).
-            Ma passion : comprendre comment les systèmes tombent — pour mieux les protéger.
+            Third-year Computer Science student at Université Côte d'Azur, targeting a
+            <strong>Master's in Cybersecurity</strong> at a top French institution.
+            My focus is on network security, incident response, and understanding offensive
+            techniques to build stronger defenses.
           </p>
           <p>
-            En dehors du terminal, je pratique le <strong>triathlon</strong> en compétition.
-            Discipline, résilience, gestion de l'effort — des réflexes qui s'appliquent
-            autant en course qu'en analyse d'incident.
-          </p>
-          <p>
-            Actuellement actif sur <strong>TryHackMe</strong>, je construis une culture
-            opérationnelle en sécurité offensive/défensive, en complément de mes projets
-            académiques sur les infrastructures réseau et les outils SOC.
+            I build things hands-on: full network infrastructures in Cisco Packet Tracer,
+            a web-based SOC dashboard, and regular CTF labs on TryHackMe. I want to work
+            in environments where security is taken seriously and where the work has real stakes.
           </p>
         </div>
-        <div class="about-stats reveal">
-          <div class="stat-card">
-            <span class="stat-number" data-target="3">0</span>
-            <span class="stat-label">années d'études info</span>
+        <div class="timeline fade-up">
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <span class="tl-year">2026 — target</span>
+              <p class="tl-title">MSc Cybersecurity</p>
+              <p class="tl-place">Paris-Saclay · IMT · EURECOM · EPITA</p>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-number" data-target="4">0</span>
-            <span class="stat-label">projets techniques</span>
+          <div class="tl-item">
+            <div class="tl-dot tl-dot--active"></div>
+            <div class="tl-body">
+              <span class="tl-year">2023 — 2026</span>
+              <p class="tl-title">BSc Computer Science</p>
+              <p class="tl-place">Université Côte d'Azur</p>
+            </div>
           </div>
-          <div class="stat-card">
-            <span class="stat-number" data-target="10">0</span>
-            <span class="stat-label">technos maîtrisées</span>
-          </div>
-          <div class="stat-card">
-            <span class="stat-number" data-target="1">0</span>
-            <span class="stat-label">passion triathlon</span>
+          <div class="tl-item">
+            <div class="tl-dot"></div>
+            <div class="tl-body">
+              <span class="tl-year">2023</span>
+              <p class="tl-title">Baccalauréat — Spécialité NSI &amp; Maths</p>
+              <p class="tl-place">Lycée — Mention Bien</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══════════════ SKILLS ═══════════════ -->
-  <section class="section section-alt" id="skills" aria-label="Compétences">
+  <!-- SKILLS -->
+  <section class="section section-dark" id="skills" aria-label="Skills">
     <div class="container">
-      <h2 class="section-title reveal">Compétences</h2>
-      <div class="skills-grid">
+      <div class="section-head fade-up">
+        <span class="section-num">02</span>
+        <h2>Skills</h2>
+      </div>
+      <div class="skills-wrap">
 
-        <div class="skill-group reveal">
-          <div class="skill-group-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        <div class="skill-col fade-up">
+          <h3 class="skill-col-title">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <path d="M10 18s7-3.5 7-8.75V4.5L10 2 3 4.5v4.75C3 14.5 10 18 10 18z"/>
             </svg>
-          </div>
-          <h3>Sécurité</h3>
-          <ul class="skill-tags" role="list">
-            <li>Analyse de menaces</li>
-            <li>Détection d'intrusion</li>
-            <li>CTF / TryHackMe</li>
-            <li>ACL & Pare-feu</li>
+            Security
+          </h3>
+          <ul class="skill-list" role="list">
+            <li>Threat analysis &amp; detection</li>
+            <li>Intrusion detection</li>
+            <li>ACL · Firewall rules</li>
             <li>VPN IPsec</li>
             <li>SSH hardening</li>
+            <li>CTF / TryHackMe</li>
+            <li>Pentest fundamentals</li>
+            <li>Forensics basics</li>
           </ul>
         </div>
 
-        <div class="skill-group reveal">
-          <div class="skill-group-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <rect x="2" y="2" width="20" height="8" rx="2"/>
-              <rect x="2" y="14" width="20" height="8" rx="2"/>
-              <line x1="6" y1="6" x2="6.01" y2="6"/>
-              <line x1="6" y1="18" x2="6.01" y2="18"/>
+        <div class="skill-col fade-up">
+          <h3 class="skill-col-title">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <rect x="2" y="4" width="16" height="6" rx="1.5"/>
+              <rect x="2" y="12" width="16" height="6" rx="1.5"/>
+              <circle cx="5" cy="7" r="1" fill="currentColor"/>
+              <circle cx="5" cy="15" r="1" fill="currentColor"/>
             </svg>
-          </div>
-          <h3>Réseaux</h3>
-          <ul class="skill-tags" role="list">
-            <li>VLAN / 802.1Q</li>
-            <li>OSPF / BGP</li>
+            Networking
+          </h3>
+          <ul class="skill-list" role="list">
+            <li>VLAN · 802.1Q</li>
+            <li>OSPF · BGP</li>
             <li>NAT / PAT</li>
-            <li>DHCP / DNS</li>
-            <li>VoIP</li>
+            <li>DHCP · DNS</li>
+            <li>VoIP (SIP)</li>
             <li>Cisco IOS</li>
+            <li>Wireshark</li>
+            <li>Packet Tracer</li>
           </ul>
         </div>
 
-        <div class="skill-group reveal">
-          <div class="skill-group-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <polyline points="16 18 22 12 16 6"/>
-              <polyline points="8 6 2 12 8 18"/>
+        <div class="skill-col fade-up">
+          <h3 class="skill-col-title">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.3" aria-hidden="true">
+              <polyline points="13 15 18 10 13 5"/>
+              <polyline points="7 5 2 10 7 15"/>
             </svg>
-          </div>
-          <h3>Développement</h3>
-          <ul class="skill-tags" role="list">
+            Dev
+          </h3>
+          <ul class="skill-list" role="list">
             <li>Java</li>
             <li>Python</li>
             <li>JavaScript</li>
             <li>HTML5 / CSS3</li>
             <li>SQL</li>
-            <li>Bash / Shell</li>
-          </ul>
-        </div>
-
-        <div class="skill-group reveal">
-          <div class="skill-group-icon" aria-hidden="true">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-              <circle cx="12" cy="12" r="10"/>
-              <line x1="2" y1="12" x2="22" y2="12"/>
-              <path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/>
-            </svg>
-          </div>
-          <h3>Outils</h3>
-          <ul class="skill-tags" role="list">
-            <li>Cisco Packet Tracer</li>
-            <li>Wireshark</li>
-            <li>Git / GitHub</li>
+            <li>Bash · Shell</li>
+            <li>Git · GitHub</li>
             <li>Linux</li>
-            <li>Nmap</li>
-            <li>TryHackMe</li>
           </ul>
         </div>
 
@@ -194,157 +211,129 @@
     </div>
   </section>
 
-  <!-- ═══════════════ PROJECTS ═══════════════ -->
-  <section class="section" id="projects" aria-label="Projets">
+  <!-- PROJECTS -->
+  <section class="section" id="projects" aria-label="Projects">
     <div class="container">
-      <h2 class="section-title reveal">Projets</h2>
-      <div class="projects-grid">
+      <div class="section-head fade-up">
+        <span class="section-num">03</span>
+        <h2>Projects</h2>
+      </div>
+      <div class="projects-list">
 
-        <!-- Cisco Packet Tracer -->
-        <article class="project-card reveal" aria-label="Projets Cisco Packet Tracer">
-          <div class="project-header">
-            <div class="project-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="2" y="2" width="20" height="8" rx="2"/>
-                <rect x="2" y="14" width="20" height="8" rx="2"/>
-                <line x1="6" y1="6" x2="6.01" y2="6"/>
-                <line x1="6" y1="18" x2="6.01" y2="18"/>
-              </svg>
-            </div>
-            <div class="project-badges">
-              <span class="badge badge-blue">Réseau</span>
-              <span class="badge badge-blue">Cisco</span>
+        <!-- CyberTrack — featured -->
+        <article class="project project--featured fade-up" aria-label="CyberTrack">
+          <div class="project-meta">
+            <span class="project-index">01</span>
+            <div class="project-tags">
+              <span class="tag tag--accent">SOC Platform</span>
+              <span class="tag">Web App</span>
             </div>
           </div>
-          <h3 class="project-title">Cisco Network Labs</h3>
-          <p class="project-desc">
-            Deux infrastructures réseau complètes modélisées sous Cisco Packet Tracer.
-            <strong>Campus universitaire</strong> : VLAN, switch L3, DHCP, ACL, port security, NAT, VoIP, Wi-Fi.
-            <strong>Réseau financier bi-sites</strong> : OSPF, double opérateur, NAT/PAT, VPN IPsec, VoIP, SSH.
-          </p>
-          <ul class="project-tech" role="list">
-            <li>VLAN</li><li>OSPF</li><li>VPN IPsec</li><li>ACL</li><li>VoIP</li><li>NAT/PAT</li>
-          </ul>
-          <a href="https://github.com/vincentdchps/PROJETS-CISCO-PACKET-TRACER"
-             class="project-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Voir Cisco Network Labs sur GitHub">
-            Voir sur GitHub
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
+          <div class="project-content">
+            <h3 class="project-title">CyberTrack</h3>
+            <p class="project-desc">
+              A mini-SOC web application built to monitor, analyze, and resolve security
+              threats within an organization. Alert dashboard, incident workflow, and
+              threat tracking — the kind of tool security teams actually use.
+            </p>
+            <ul class="project-stack" role="list">
+              <li>Incident response</li><li>Alert dashboard</li><li>Threat tracking</li>
+            </ul>
+          </div>
+          <a href="https://github.com/vincentdchps/CyberTrack"
+             class="project-link" target="_blank" rel="noopener noreferrer"
+             aria-label="CyberTrack on GitHub">
+            <span>GitHub</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
             </svg>
           </a>
         </article>
 
-        <!-- CyberTrack -->
-        <article class="project-card project-card--featured reveal" aria-label="CyberTrack">
-          <div class="project-header">
-            <div class="project-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
-              </svg>
-            </div>
-            <div class="project-badges">
-              <span class="badge badge-accent">SOC</span>
-              <span class="badge badge-blue">Web App</span>
-              <span class="badge badge-muted">Projet phare</span>
+        <!-- Cisco -->
+        <article class="project fade-up" aria-label="Cisco Network Labs">
+          <div class="project-meta">
+            <span class="project-index">02</span>
+            <div class="project-tags">
+              <span class="tag tag--blue">Network</span>
+              <span class="tag">Cisco</span>
             </div>
           </div>
-          <h3 class="project-title">CyberTrack</h3>
-          <p class="project-desc">
-            Application web <strong>Mini-SOC</strong> conçue pour surveiller, analyser et
-            résoudre des menaces informatiques au sein d'une organisation. Interface de gestion
-            d'incidents, tableau de bord d'alertes et workflow de réponse.
-          </p>
-          <ul class="project-tech" role="list">
-            <li>SOC</li><li>Analyse d'incidents</li><li>Dashboard</li><li>Threat tracking</li>
-          </ul>
-          <a href="https://github.com/vincentdchps/CyberTrack"
-             class="project-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Voir CyberTrack sur GitHub">
-            Voir sur GitHub
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
+          <div class="project-content">
+            <h3 class="project-title">Cisco Network Labs</h3>
+            <p class="project-desc">
+              Two complete network infrastructures modeled in Cisco Packet Tracer.
+              <strong>University campus</strong>: VLAN, L3 switching, DHCP, ACL, port security, NAT, VoIP, Wi-Fi.
+              <strong>Dual-site financial network</strong>: OSPF, dual ISP, NAT/PAT, IPsec VPN, VoIP, SSH.
+            </p>
+            <ul class="project-stack" role="list">
+              <li>VLAN</li><li>OSPF</li><li>IPsec VPN</li><li>ACL</li><li>NAT/PAT</li><li>VoIP</li>
+            </ul>
+          </div>
+          <a href="https://github.com/vincentdchps/PROJETS-CISCO-PACKET-TRACER"
+             class="project-link" target="_blank" rel="noopener noreferrer"
+             aria-label="Cisco Network Labs on GitHub">
+            <span>GitHub</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
             </svg>
           </a>
         </article>
 
         <!-- HexaChess -->
-        <article class="project-card reveal" aria-label="HexaChess">
-          <div class="project-header">
-            <div class="project-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <polygon points="12 2 22 8.5 22 15.5 12 22 2 15.5 2 8.5"/>
-              </svg>
-            </div>
-            <div class="project-badges">
-              <span class="badge badge-blue">Java</span>
-              <span class="badge badge-muted">Open source</span>
+        <article class="project fade-up" aria-label="HexaChess">
+          <div class="project-meta">
+            <span class="project-index">03</span>
+            <div class="project-tags">
+              <span class="tag tag--blue">Java</span>
+              <span class="tag">Open source</span>
             </div>
           </div>
-          <h3 class="project-title">HexaChess</h3>
-          <p class="project-desc">
-            Implémentation Java du <strong>jeu d'échecs hexagonal de Gliński</strong>.
-            Plateau hexagonal, règles complètes, logique de déplacement des pièces adaptée
-            à la géométrie à 6 directions.
-          </p>
-          <ul class="project-tech" role="list">
-            <li>Java</li><li>OOP</li><li>Algorithmie</li><li>Géométrie hex</li>
-          </ul>
+          <div class="project-content">
+            <h3 class="project-title">HexaChess</h3>
+            <p class="project-desc">
+              Java implementation of Gliński's hexagonal chess. Full rule set, piece movement
+              logic adapted to 6-direction geometry, object-oriented architecture.
+            </p>
+            <ul class="project-stack" role="list">
+              <li>Java</li><li>OOP</li><li>Algorithms</li><li>Hex geometry</li>
+            </ul>
+          </div>
           <a href="https://github.com/Inc44/HexaChess"
-             class="project-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Voir HexaChess sur GitHub">
-            Voir sur GitHub
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
+             class="project-link" target="_blank" rel="noopener noreferrer"
+             aria-label="HexaChess on GitHub">
+            <span>GitHub</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
             </svg>
           </a>
         </article>
 
         <!-- TryHackMe -->
-        <article class="project-card reveal" aria-label="TryHackMe">
-          <div class="project-header">
-            <div class="project-icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
-            </div>
-            <div class="project-badges">
-              <span class="badge badge-accent">CTF</span>
-              <span class="badge badge-blue">Hacking éthique</span>
+        <article class="project fade-up" aria-label="TryHackMe">
+          <div class="project-meta">
+            <span class="project-index">04</span>
+            <div class="project-tags">
+              <span class="tag tag--accent">CTF</span>
+              <span class="tag">Ethical hacking</span>
             </div>
           </div>
-          <h3 class="project-title">TryHackMe</h3>
-          <p class="project-desc">
-            Apprentissage continu en sécurité offensive et défensive via des labs guidés et
-            des CTF : reconnaissance, exploitation, escalade de privilèges, forensics, défense réseau.
-          </p>
-          <ul class="project-tech" role="list">
-            <li>Pentest</li><li>Forensics</li><li>OSINT</li><li>Priv-esc</li>
-          </ul>
+          <div class="project-content">
+            <h3 class="project-title">TryHackMe</h3>
+            <p class="project-desc">
+              Ongoing offensive/defensive security practice through guided labs and CTFs:
+              recon, exploitation, privilege escalation, forensics, network defense.
+            </p>
+            <ul class="project-stack" role="list">
+              <li>Pentest</li><li>Forensics</li><li>OSINT</li><li>Priv-esc</li>
+            </ul>
+          </div>
           <a href="https://tryhackme.com/p/vincent.deschamps06"
-             class="project-link"
-             target="_blank"
-             rel="noopener noreferrer"
-             aria-label="Voir le profil TryHackMe de Vincent Deschamps">
-            Voir le profil
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-              <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6"/>
-              <polyline points="15 3 21 3 21 9"/>
-              <line x1="10" y1="14" x2="21" y2="3"/>
+             class="project-link" target="_blank" rel="noopener noreferrer"
+             aria-label="Vincent Deschamps on TryHackMe">
+            <span>Profile</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+              <path d="M7 17L17 7M17 7H7M17 7v10"/>
             </svg>
           </a>
         </article>
@@ -353,50 +342,47 @@
     </div>
   </section>
 
-  <!-- ═══════════════ CONTACT ═══════════════ -->
-  <section class="section section-alt" id="contact" aria-label="Contact">
+  <!-- CONTACT -->
+  <section class="section section-dark" id="contact" aria-label="Contact">
     <div class="container">
-      <h2 class="section-title reveal">Contact</h2>
-      <div class="contact-wrapper reveal">
-        <p class="contact-intro">
-          Vous recrutez pour un Master Cybersécurité ou un stage ? Je suis disponible.
-        </p>
-        <div class="contact-links">
-          <button class="contact-email" id="copyEmail" aria-label="Copier l'adresse e-mail">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
-              <polyline points="22,6 12,13 2,6"/>
-            </svg>
-            <span id="emailLabel">vincent.deschamps06@gmail.com</span>
-            <span class="copy-hint" aria-hidden="true">Copier</span>
-          </button>
-
-          <div class="contact-socials">
-            <a href="https://github.com/vincentdchps"
-               target="_blank" rel="noopener noreferrer"
-               class="social-link" aria-label="GitHub de Vincent Deschamps">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/>
+      <div class="section-head fade-up">
+        <span class="section-num">04</span>
+        <h2>Contact</h2>
+      </div>
+      <div class="contact-wrap fade-up">
+        <div class="contact-left">
+          <p class="contact-big">
+            Recruiting for a<br/>Master's or an internship?
+          </p>
+          <p class="contact-sub">My inbox is open.</p>
+        </div>
+        <div class="contact-right">
+          <button class="email-btn" id="copyEmail" aria-label="Copy email address">
+            <span class="email-text" id="emailText">vincent.deschamps06@gmail.com</span>
+            <span class="email-action" id="emailAction" aria-hidden="true">
+              <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5">
+                <rect x="8" y="8" width="10" height="10" rx="1.5"/>
+                <path d="M4 12H3a1 1 0 01-1-1V3a1 1 0 011-1h8a1 1 0 011 1v1"/>
               </svg>
+              Copy
+            </span>
+          </button>
+          <div class="contact-links">
+            <a href="https://github.com/vincentdchps" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="GitHub">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
               GitHub
             </a>
-            <a href="https://www.linkedin.com/in/vincent-deschamps-1a1a10356/"
-               target="_blank" rel="noopener noreferrer"
-               class="social-link" aria-label="LinkedIn de Vincent Deschamps">
-              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
-              </svg>
+            <a href="https://www.linkedin.com/in/vincent-deschamps-1a1a10356/" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="LinkedIn">
+              <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
               LinkedIn
             </a>
-            <a href="https://tryhackme.com/p/vincent.deschamps06"
-               target="_blank" rel="noopener noreferrer"
-               class="social-link" aria-label="TryHackMe de Vincent Deschamps">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                <circle cx="12" cy="12" r="10"/>
-                <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/>
-                <line x1="12" y1="17" x2="12.01" y2="17"/>
-              </svg>
+            <a href="https://tryhackme.com/p/vincent.deschamps06" target="_blank" rel="noopener noreferrer" class="contact-link" aria-label="TryHackMe">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
               TryHackMe
+            </a>
+            <a href="cv-vincent-deschamps.pdf" class="contact-link" download aria-label="Download CV">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="12" y1="11" x2="12" y2="17"/><polyline points="9 14 12 17 15 14"/></svg>
+              CV / Resume
             </a>
           </div>
         </div>
@@ -404,16 +390,12 @@
     </div>
   </section>
 
-  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <!-- FOOTER -->
   <footer class="footer" role="contentinfo">
     <div class="container">
-      <p>
-        <span>© 2026 Vincent Deschamps</span>
-        <span class="footer-sep" aria-hidden="true">·</span>
-        <a href="https://vincentdeschamps.dev" aria-label="Site personnel de Vincent Deschamps">vincentdeschamps.dev</a>
-        <span class="footer-sep" aria-hidden="true">·</span>
-        <span>Fait avec HTML, CSS &amp; JS pur</span>
-      </p>
+      <span class="footer-name">Vincent Deschamps</span>
+      <span class="footer-domain">vincentdeschamps.dev</span>
+      <span class="footer-year">2026</span>
     </div>
   </footer>
 
