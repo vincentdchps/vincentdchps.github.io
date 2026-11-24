@@ -160,8 +160,143 @@
 
   last.addEventListener('mouseenter', () => {
     last.style.transition = 'none';
-    last.style.webkitTextStroke = '1.5px var(--accent)';
+    last.style.webkitTextStroke = '1px rgba(255,255,255,0.75)';
     setTimeout(() => { last.style.webkitTextStroke = ''; }, 300);
     setTimeout(() => { last.style.transition = ''; }, 350);
   });
+})();
+
+
+/* ══════════════════════════════════
+   HERO CANVAS — monochrome topology
+══════════════════════════════════ */
+(function () {
+  const canvas = document.getElementById('netCanvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let W = 0, H = 0, dpr = 1, nodes = [], pulses = [], raf;
+  let mouse = { x: -9999, y: -9999 };
+
+  const resize = () => {
+    dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = canvas.offsetWidth;
+    H = canvas.offsetHeight;
+    canvas.width  = W * dpr;
+    canvas.height = H * dpr;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  };
+
+  const init = () => {
+    resize();
+    const count = Math.max(24, Math.min(48, Math.floor((W * H) / 14000)));
+    nodes = Array.from({ length: count }, (_, i) => ({
+      x: Math.random() * W,
+      y: Math.random() * H,
+      vx: (Math.random() - 0.5) * 0.28,
+      vy: (Math.random() - 0.5) * 0.28,
+      r: i % 6 === 0 ? 2.4 : 1.3,
+      hub: i % 6 === 0
+    }));
+    pulses = [];
+  };
+
+  canvas.addEventListener('mousemove', e => {
+    const r = canvas.getBoundingClientRect();
+    mouse.x = e.clientX - r.left;
+    mouse.y = e.clientY - r.top;
+  }, { passive: true });
+  canvas.addEventListener('mouseleave', () => { mouse.x = -9999; mouse.y = -9999; });
+
+  const draw = () => {
+    ctx.clearRect(0, 0, W, H);
+    const maxD = 140;
+
+    // subtle concentric reference rings centered on right half
+    const cx = W * 0.55, cy = H * 0.48;
+    ctx.strokeStyle = 'rgba(255,255,255,0.035)';
+    ctx.lineWidth = 1;
+    [110, 200, 290].forEach(rad => {
+      ctx.beginPath();
+      ctx.arc(cx, cy, rad, 0, Math.PI * 2);
+      ctx.stroke();
+    });
+
+    for (let i = 0; i < nodes.length; i++) {
+      const a = nodes[i];
+      if (!reduced) {
+        a.x += a.vx;
+        a.y += a.vy;
+        if (a.x < 0 || a.x > W) a.vx *= -1;
+        if (a.y < 0 || a.y > H) a.vy *= -1;
+      }
+
+      // edges
+      for (let j = i + 1; j < nodes.length; j++) {
+        const b = nodes[j];
+        const dx = a.x - b.x, dy = a.y - b.y;
+        const d = Math.hypot(dx, dy);
+        if (d < maxD) {
+          const alpha = (1 - d / maxD) * 0.16;
+          ctx.strokeStyle = `rgba(255,255,255,${alpha})`;
+          ctx.lineWidth = 0.7;
+          ctx.beginPath();
+          ctx.moveTo(a.x, a.y);
+          ctx.lineTo(b.x, b.y);
+          ctx.stroke();
+
+          if (!reduced && a.hub && pulses.length < 6 && Math.random() < 0.002) {
+            pulses.push({ ax: a.x, ay: a.y, bx: b.x, by: b.y, t: 0 });
+          }
+        }
+      }
+
+      // mouse link
+      const md = Math.hypot(a.x - mouse.x, a.y - mouse.y);
+      if (md < 160) {
+        ctx.strokeStyle = `rgba(255,255,255,${(1 - md / 160) * 0.28})`;
+        ctx.lineWidth = 0.8;
+        ctx.beginPath();
+        ctx.moveTo(a.x, a.y);
+        ctx.lineTo(mouse.x, mouse.y);
+        ctx.stroke();
+      }
+
+      // node
+      ctx.fillStyle = a.hub ? 'rgba(255,255,255,0.65)' : 'rgba(255,255,255,0.28)';
+      ctx.beginPath();
+      ctx.arc(a.x, a.y, a.r, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    // packet pulses
+    for (let i = pulses.length - 1; i >= 0; i--) {
+      const p = pulses[i];
+      p.t += 0.025;
+      if (p.t >= 1) { pulses.splice(i, 1); continue; }
+      const px = p.ax + (p.bx - p.ax) * p.t;
+      const py = p.ay + (p.by - p.ay) * p.t;
+      ctx.fillStyle = `rgba(255,255,255,${1 - Math.abs(p.t - 0.5) * 1.4})`;
+      ctx.beginPath();
+      ctx.arc(px, py, 1.8, 0, Math.PI * 2);
+      ctx.fill();
+    }
+
+    if (!reduced) raf = requestAnimationFrame(draw);
+  };
+
+  let rTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(rTimer);
+    rTimer = setTimeout(() => { cancelAnimationFrame(raf); init(); draw(); }, 180);
+  }, { passive: true });
+
+  document.addEventListener('visibilitychange', () => {
+    if (document.hidden) cancelAnimationFrame(raf);
+    else if (!reduced) draw();
+  });
+
+  init();
+  draw();
 })();
